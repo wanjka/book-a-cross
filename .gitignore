@@ -1,0 +1,18 @@
+# Virtual environment
+env/
+
+# Beta versions code
+beta/
+
+# Anything not required for project working process
+misc/
+
+# Editors stuff
+.vscode/
+.*.swp
+
+# Byte-compiled
+__pycache__
+
+# Database
+*.db

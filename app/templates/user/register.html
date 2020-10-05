@@ -1,0 +1,20 @@
+﻿{% extends 'base.html' %}
+
+{% block content %}
+  <div class='row'>
+    <div class='col-4'>
+      <form action="{{ url_for('user.process_reg') }}" method="post">
+        {% from 'user/_formhelpers.html' import render_field %}
+        {{ form.hidden_tag() }}
+        {{ render_field(form.username) }}
+        {{ render_field(form.email) }}
+        {{ render_field(form.password) }}
+        {{ render_field(form.confirm) }}
+        <div class='form-group'>
+          {{ form.submit }}
+        </div>
+      </form>
+    </div>
+    <div class='col-8'></div>
+  </div>
+{% endblock %}

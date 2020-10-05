@@ -1,0 +1,38 @@
+﻿{% extends 'base.html' %}
+
+{% block content %}
+  <div class='row'>
+    {% if current_user.is_authenticated %}
+      <span>Вы вошли как {{ current_user.username }} (<a href="{{ url_for('user.logout') }}">Выход</a>)</span>
+    {% else %}
+      <a href="{{ url_for('user.login') }}">Авторизация</a>
+    {% endif %}
+  </div>
+  <div class='row'>
+    <div class='col-9'>
+      <h2>ПитоНовости</h2>
+      <ul>
+        {% if not news_list %}
+          <em>Сервис новостей</em> не будет, электричество кончилось
+        {% else %}
+          {% for n in news_list %}
+            <li>
+              <h3><a href='{{ n.url }}'>{{ n.title }}</a></h3>
+              <p>{{ n.published.strftime('%d.%m.%Y') }}</p>
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+    </div>
+    <div class='col-3'>
+      <h3>Погода в Туле</h3>
+      {% if weather %}
+        <p>Температура: {{ weather.temp_C }}</p>
+        <p>(Ощущается как {{ weather.FeelsLikeC }})</p>
+      {% else %}
+        <p>Сервис погоды временно недоступен</p>
+        <p><em>Погоды не существует</em></p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
