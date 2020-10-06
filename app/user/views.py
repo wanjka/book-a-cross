@@ -6,14 +6,12 @@ from app.user.models import User
 
 
 blueprint = Blueprint('user', __name__, url_prefix='/user')
-# переменная для запоминания, в каком блюпринте главная страница
-index = 'index'
 
 
 @blueprint.route('/login')
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for(index))
+        return redirect(url_for(root.index))
 
     title = 'Авторизация'
     login_form = LoginForm()
@@ -30,7 +28,7 @@ def process_login():
         if user_is_knocking and user_is_knocking.check_password(form.password.data):
             login_user(user_is_knocking, form.remember_me.data)
             flash('Добро пожаловать, {}!'.format(user_is_knocking.username))
-            return redirect(url_for(index))
+            return redirect(url_for(root.index))
 
         else:
             flash('Неправильный логин или пароль')
@@ -44,13 +42,13 @@ def process_login():
 @blueprint.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for(index))
+    return redirect(url_for(root.index))
 
 
 @blueprint.route('/register')
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for(index))
+        return redirect(url_for(root.index))
     form = RegistrationForm()
     title = 'Регистрация'
     return render_template('user/register.html', page_title=title, form=form)
