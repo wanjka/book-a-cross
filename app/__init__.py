@@ -2,7 +2,7 @@ from flask import Flask, url_for
 from flask_login import LoginManager, current_user
 from flask_migrate import Migrate
 
-# from app.admin.views import blueprint as admin_blueprint
+from app.admin.views import blueprint as admin_blueprint
 from app.db import db
 from app.root.views import blueprint as root_blueprint
 from app.user.models import User
@@ -19,7 +19,7 @@ def create_app():
     login_manager = LoginManager()
     login_manager.init_app(app)
     login_manager.login_view = 'user.login'
-    # app.register_blueprint(admin_blueprint)
+    app.register_blueprint(admin_blueprint)
     app.register_blueprint(root_blueprint)
     app.register_blueprint(user_blueprint)
 
